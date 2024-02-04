@@ -23,18 +23,21 @@ args.seq = args.seq.upper()
 
 # Check if the sequence is valid (only contains ACGTU)
 if re.search('^[ACGTU]+$', args.seq):
+    # If the sequence contains both T and U, it's mutagenic
+    if 'U' in args.seq and 'T' in args.seq:
+        print ('Hold on! The sequence contains both ‘T’ and ‘U’, which is unusual. It might be a sign of a mutagenic sequence.')
     # If the sequence contains T, it's DNA
-    if re.search('T', args.seq):
-        print ('The sequence is DNA')
+    elif 'T' in args.seq:
+        print ('Eureka! The sequence you’ve provided is DNA. It’s the blueprint of life!')
     # If the sequence contains U, it's RNA
-    elif re.search('U', args.seq):
-        print ('The sequence is RNA')
+    elif 'U' in args.seq:
+        print ('Interesting! The sequence you’ve entered is RNA. It’s a key player in protein synthesis and gene regulation!')
     # If the sequence contains neither T nor U, it could be either DNA or RNA
     else:
-        print ('The sequence can be DNA or RNA')
+        print ("Oops! The sequence you've entered seem to be DNA or RNA.")
 # If the sequence is not valid, print an error message
 else:
-    print ('Invalid sequence source')
+    print ("Oops! The sequence you've entered doesn't seem to be valid DNA or RNA. It's like trying to read a book in a language you don't understand.")
 
 # If a motif is provided, search for it in the sequence
 if args.motif:
@@ -42,7 +45,8 @@ if args.motif:
     print(f'Motif search enabled: looking for motif "{args.motif}" in sequence "{args.seq}"... ', end = '')
     # If the motif is found in the sequence, print a success message
     if re.search(args.motif, args.seq):
-        print("HERE are a motif")
+        print("Great news! The motif you're looking for is present in the sequence. It's like finding a needle in a haystack!")
     # If the motif is not found, print an error message
     else:
-        print("SORRY BUT NO MOTIF FOUND")
+        print("I'm sorry, but the motif you're searching for doesn’t appear in the sequence. It's like searching for a four-leaf clover in a field of three-leaf ones.")
+
