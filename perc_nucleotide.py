@@ -1,27 +1,56 @@
 #!/usr/bin/env python
 
-# ESTE ES LA PRIMERA VERSIÓN DEL CÓDIGO
+# ESTE ES LA SEGUNDA VERSIÓN DEL CÓDIGO
+import sys, re
+from argparse import ArgumentParser
+from collections import Counter
 
-def nucleotide_percentage():
-    # Solicitar al usuario que introduzca una secuencia
-    sequence = input("Introduzca una secuencia: ")
+# Create a parser for command line arguments
+parser = ArgumentParser(description='Classify a sequence as DNA or RNA')
 
-    # Crear un diccionario para almacenar los conteos de nucleótidos
-    nucleotide_counts = {"A": 0, "C": 0, "G": 0, "T": 0, "U": 0}
+# Add arguments for sequence and motif
+parser.add_argument("-s", "--seq", type=str, required=True, help="Input sequence")
+parser.add_argument("-m", "--motif", type=str, required=False, help="Motif")
 
-    # Contar los nucleótidos en la secuencia
-    for nucleotide in sequence:
-        if nucleotide in nucleotide_counts:
-            nucleotide_counts[nucleotide] += 1
+# If no arguments are provided, print help and exit
+if len(sys.argv) == 1:
+    parser.print_help()
+    sys.exit(1)
 
-    # Calcular los porcentajes
-    total = len(sequence)
-    nucleotide_percentages = {nucleotide: count / total * 100 for nucleotide, count in nucleotide_counts.items()}
+# Parse the command line arguments
+args = parser.parse_args()
 
-    return nucleotide_percentages
+# Convert the sequence to uppercase
+args.seq = args.seq.upper()
 
-# Prueba la función
-print(nucleotide_percentage()
+# Check if the sequence is valid (only contains ACGTU)
+if re.search('^[ACGTU]+$', args.seq):
+    # If the sequence contains both T and U, it's mutagenic
+    if 'U' in args.seq and 'T' in args.seq:
+        print('Hold on! The sequence contains both ‘T’ and ‘U’, which is unusual. It might be a sign of a mutagenic sequence.')
+    # If the sequence contains T, it's DNA
+    elif 'T' in args.seq:
+        print('Eureka! The sequence you’ve provided is DNA. It’s the blueprint of life!')
+    # If the sequence contains U, it's RNA
+    elif 'U' in args.seq:
+        print('Interesting! The sequence you’ve entered is RNA. It’s a key player in protein synthesis and gene regulation!')
+    # If the sequence contains neither T nor U, it could be either DNA or RNA
+    else:
+        print("Oops! The sequence you've entered seem to be DNA or RNA.")
+# If the sequence is not valid, print an error message
+else:
+    print("Oops! The sequence you've entered doesn't seem to be valid DNA or RNA. It's like trying to read a book in a language you don't understand.")
+
+# If a motif is provided, search for it in the sequence
+if args.motif:
+    args.motif = args.motif.upper()
+    print(f'Motif search enabled: looking for motif "{args.motif}" in sequence "{args.seq}"... ', end='')
+    # If the motif is found in the sequence, print a success message
+    if re.search(args.motif, args.seq):
+        print("Great news! The motif you're looking for is present in the sequence. It's like finding a needle in a haystack!")
+    # If the motif is not found, print an error message
+    else:
+        print("I'm sorry, but the motif you're searching for doesn’t appear in the sequence. It's like searching for a four-leaf clover in a field of three-leaf ones.")
 
 def nucleotide_percentage(sequence):
     """
@@ -38,4 +67,4 @@ def nucleotide_percentage(sequence):
     return nucleotide_percentages
 
 # Test the function
-print(nucleotide_percentage(args.seq)))
+print(nucleotide_percentage(args.seq))
