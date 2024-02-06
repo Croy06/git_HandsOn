@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-# ESTE ES LA SEGUNDA VERSIÓN DEL CÓDIGO
 import sys, re
 from argparse import ArgumentParser
 from collections import Counter
