@@ -21,4 +21,21 @@ def nucleotide_percentage():
     return nucleotide_percentages
 
 # Prueba la función
-print(nucleotide_percentage())
+print(nucleotide_percentage()
+
+def nucleotide_percentage(sequence):
+    """
+    This function calculates the percentage of each nucleotide in a given sequence.
+    It uses the collections.Counter class for efficient counting.
+    """
+    # Count the nucleotides in the sequence
+    nucleotide_counts = Counter(sequence)
+
+    # Calculate the percentages
+    total = len(sequence)
+    nucleotide_percentages = {nucleotide: count / total * 100 for nucleotide, count in nucleotide_counts.items()}
+
+    return nucleotide_percentages
+
+# Test the function
+print(nucleotide_percentage(args.seq)))
