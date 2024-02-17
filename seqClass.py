@@ -35,7 +35,7 @@ if re.search('^[ACGTU]+$', args.seq):
         print('Interesting! The sequence you’ve entered is RNA. It’s a key player in protein synthesis and gene regulation!')
     # If the sequence contains neither T nor U, it could be either DNA or RNA
     else:
-        print("Oops! The sequence you've entered seem to be DNA or RNA.")
+        print("Oops! The sequence you've entered seems to be DNA or RNA.")
 # If the sequence is not valid, print an error message
 else:
     print("Oops! The sequence you've entered doesn't seem to be valid DNA or RNA. It's like trying to read a book in a language you don't understand.")
@@ -43,7 +43,7 @@ else:
 # If a motif is provided, search for it in the sequence
 if args.motif:
     args.motif = args.motif.upper()
-    print(f'Motif search enabled: looking for motif "{args.motif}" in sequence "{args.seq}"... ', end='')
+    print(f'Motif search enabled: looking for motif "{args.motif}" in sequence "{args.seq}"...', sep = " ")
     # If the motif is found in the sequence, print a success message
     if re.search(args.motif, args.seq):
         print("Great news! The motif you're looking for is present in the sequence. It's like finding a needle in a haystack!")
