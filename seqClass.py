@@ -10,6 +10,7 @@ parser = ArgumentParser(description='Classify a sequence as DNA or RNA')
 # Add arguments for sequence and motif
 parser.add_argument("-s", "--seq", type=str, required=True, help="Input sequence")
 parser.add_argument("-m", "--motif", type=str, required=False, help="Motif")
+parser.add_argument("-p", "--percentage", action='store_true', help="Calculate nucleotide percentage")
 
 # If no arguments are provided, print help and exit
 if len(sys.argv) == 1:
@@ -65,5 +66,6 @@ def nucleotide_percentage(sequence):
 
     return nucleotide_percentages
 
-# Test the function
-print(nucleotide_percentage(args.seq))
+# If the percentage option is enabled, calculate the nucleotide percentage
+if args.percentage:
+    print(nucleotide_percentage(args.seq))
